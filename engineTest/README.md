@@ -14,4 +14,5 @@ This page is mainly to show off for a school project I'm currently working on so
 
 If you have any questions, don't be afraid to ask.
 
-- Dan Cheeps
+Sincerly,
+  Dan Cheeps
