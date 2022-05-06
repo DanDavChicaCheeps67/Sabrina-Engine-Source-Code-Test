@@ -1,0 +1,2 @@
+g++ engineTest.cpp src/SabrinaEngine/sabrinaEngine.cpp src/SabrinaEngine/graphics.cpp src/SabrinaEngine/openFiles.cpp src/SabrinaEngine/sound.cpp src/SabrinaEngine/input.cpp -I/src/SabrinaEngine -o engineTest -lSDL2main -lSDL2 -lSDL_mixer -Wall -g
+ 
