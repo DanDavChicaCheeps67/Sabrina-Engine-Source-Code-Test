@@ -12,10 +12,11 @@ bool initGraphics(Window* win)
 
 		if (win->window != NULL)
 		{
-			win->render = checkRenderFlag(win);
+			win->render = checkRenderFlags(win);
 			if (win->render != NULL)
 			{
-				win->backbuffer = setBackBuffer(win->WIDTH,win->HEIGHT);
+				if(win->renderToBackbuffer != false)
+					win->backbuffer = setBackBuffer(win->render,win->WIDTH,win->HEIGHT);
 				SDL_RenderSetLogicalSize(win->render,win->WIDTH,win->HEIGHT);
 				printf("SONIC\n");
 				worked = true;
@@ -85,11 +86,11 @@ SDL_Renderer *checkRenderFlags(Window* win)
 	return returned;
 }
 
-SDl_Texture *setBackBuffer(SDL_Renderer *ren, short &width, short &height)
+SDL_Texture *setBackBuffer(SDL_Renderer *ren, short &width, short &height)
 {
 	SDL_Texture *buff = SDL_CreateTexture( ren,
-					      SDL_PIXELFORMAT_ARGB8888,
-					      SDL_TEXTUREACCESS_STREAMING,
+					      SDL_PIXELFORMAT_RGBA8888,
+					      SDL_TEXTUREACCESS_TARGET,
 					      width,
 					      height
 					     );
@@ -98,34 +99,58 @@ SDl_Texture *setBackBuffer(SDL_Renderer *ren, short &width, short &height)
 
 void clearGraphics(Window *win)
 {
-	SDL_SetRenderTarget(win->render, win->backbuffer);
-	SDL_SetRenderDrawColor(win->render,0,0,255,1);
+	if (win->renderToBackbuffer != false)
+		SDL_SetRenderTarget(win->render, win->backbuffer);
+
+	SDL_SetRenderDrawColor( win->render,
+			        win->backgroundColor[0],
+				win->backgroundColor[1],
+				win->backgroundColor[2],
+				1
+			      );
+	
+	
 	SDL_RenderClear(win->render);	
 }
 
 void updateRender(Window *win)
 {
-	// Restart Target
-	SDL_SetRenderTarget(win->render, NULL);
-	
-	// Rendering BackBuffer
-	SDL_RenderCopyEx( win->render,
-			  win->backbuffer,
-			  NULL,
-			  NULL,
-			  win->bufferAngle,
-			  NULL,
-			  win->bufferFlip
-			);
-	
+	if (win->renderToBackbuffer != false)
+	{
+		printf("BACKBUFFER RENDER\n");
+		// Restart Target
+		SDL_SetRenderTarget(win->render, NULL);
+
+		// Rendering BackBuffer
+		SDL_RenderCopy( win->render,
+				win->backbuffer,
+				NULL,
+				NULL
+		      	      );
+	}
+
 	SDL_RenderPresent(win->render);
 }
 
 void destroyGraphics(Window *win)
 {
+	if (win->renderToBackbuffer != false)
+		SDL_DestroyTexture(win->backbuffer);
+	
 	SDL_DestroyRenderer(win->render);
 	SDL_DestroyWindow(win->window);
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
+}
+
+void changeBufferColor(SDL_Renderer *ren, Uint8 *colorChange)
+{
+	SDL_SetRenderDrawColor( ren,
+			        colorChange[0],
+				colorChange[1],
+				colorChange[2],
+				colorChange[3]
+			      );
+	SDL_RenderClear(ren);
 }
 
 void drawPixel( short &x,

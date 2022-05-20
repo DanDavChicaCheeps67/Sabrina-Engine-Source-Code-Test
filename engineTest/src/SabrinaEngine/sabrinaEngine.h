@@ -11,14 +11,16 @@
 // Sabrina Engine Depenencies
 	// Graphics
 #include "graphics.h"
-
+#include "sprites.h"
 /*
 #include "fonts.h"
 #include "tileMap.h"
 */
+
 #include "sound.h"
 #include "input.h"
 #include "openFiles.h"
+#include "framerate.h"
 
 // Prototypes
 // SDL Functions

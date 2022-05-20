@@ -1,0 +1,1 @@
+ g++ engineTest.cpp src/SabrinaEngine/sabrinaEngine.cpp src/SabrinaEngine/graphics.cpp src/SabrinaEngine/openFiles.cpp src/SabrinaEngine/sound.cpp src/SabrinaEngine/input.cpp src/SabrinaEngine/sprites.cpp src/SabrinaEngine/framerate.cpp -I/src/SabrinaEngine -o engineTest.exe -Wall -g -lSDL_mixer $(pkg-config --cflags --libs sdl2)

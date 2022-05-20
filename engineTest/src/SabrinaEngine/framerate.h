@@ -23,7 +23,7 @@ void startTicking(Ticks*);
 void stopTicking(Ticks*);
 void pauseTicking(Ticks*);
 void unPauseTicks(Ticks*);
-Uint32 *getTicks(Ticks*);
+short getTicks(Ticks*);
 
 // Capping FPS
 short calTickPerFrame(short&);

@@ -10,24 +10,28 @@
 struct Sprite
 {
 	// For Sprite Animation
-	short spriteWidth, spriteHeight, rowNumToRender, numOfSpritesInRow, frameInRow;
+	short frameNum, maxFrames;
+	int frameWidth, frameHeight, spriteWidth, spriteHeight;
 	SDL_Texture *spriteSheet;
 	std::string spriteSheetLocation;
-	short sheetWidth, sheetHeight;
+	int sheetWidth, sheetHeight;
 	SDL_Rect pos;
 	// Sprite in the world
-	short xPos, yPos, flip;
+	float xPos, yPos;
+	SDL_RendererFlip flip;
 	float angle;
 	// Texture Manipulation
 	bool changeWholeColor; 
-	short pitch;
+	Uint32 format;
+	short pitch, textAccess;
 	void *pixels;
-	Uint8 colorChage[3], colorTarget[3], alphaColor[3], alphaLevels;
+	Uint8 colorChage[3], colorTarget[3], alphaColor[4], alphaLevels;
 };
 
 struct BackForeGround
 {
-	short width, height, xPos, yPos, flip;
+	short width, height, xPos, yPos; 
+	SDL_RendererFlip flip;
 	float angle;
 	std::string location;
 	SDL_Texture *image;
@@ -37,18 +41,20 @@ struct BackForeGround
 	void *pixels;
 	Uint8 colorChange[3], colorTarget[3], alphaColor[3], alphaLevels;
 };
-// Init Sprite 
-// 	state tile size for each individual sprite
-// 	Inital start position
-// 	Alpha Color
+// Load SpriteSheets
+bool loadSpriteSheet(Sprite*,SDL_Renderer*);
+
 // Render texture to screen
 void renderSpriteFrame(Sprite*, SDL_Renderer*);
 void renderBackForeToScreen(BackForeGround*, SDL_Renderer*);
+
 // Lock texture to render specific color palette
-bool lockTexture(SDL_Texture*,short&,void&);
-bool unlockTexture(SDL_Texture*,short&,void&);
-void alphaColorRemoval(SDL_Window*,SDL_Texture*,Uint8*,short&,void&,short&,short&);
-void changeColor(SDL_Window*,SDL_Texture*,Uint8*,bool&,short&,void&,short&,short&);
+bool lockTexture(SDL_Texture*,short*,void**);
+bool unlockTexture(SDL_Texture*,short*,void**);
+bool alphaColorRemovalSprites(Sprite*, SDL_Window*);
+void alphaColorRemoval(SDL_Window*,SDL_Texture*,Uint8*,short&,void**,float&,float&);
+void changeColor(SDL_Window*,SDL_Texture*,Uint8*,bool&,short&,void**,float&,float&);
+
 // Lock Texture to blend
 void alphaBlend(SDL_Texture*,Uint8&);
 // Free sprite memory

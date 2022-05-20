@@ -29,33 +29,34 @@ void pauseTicking(Ticks* source)
 	if ( (source->started != false) && (source->paused == false) )
 	{
 		source->paused = true;
-		pause = SDL_GetTicks() - source->start;
+		source->pause = SDL_GetTicks() - source->start;
 		source->start = 0;
 	}
 }
 
 void unPauseTicking(Ticks* source)
 {
+	Uint32 pauseTicks = source->pause;
 	if ( (source->started != false) && (source->pause == true) )
 	{
 		source->pause = false;
-		source->start = SDL_GetTicks - source->pause;
+		source->start = SDL_GetTicks() - pauseTicks;
 		source->pause = 0;
 	}	
 }
 
-Uint32 *getTicks(Ticks* source)
+short getTicks(Ticks* source)
 {
-	Uint32 time = 0;
+	short time = 0;
 
 	if (source->started != false)
 	{
 		if (source->paused != false)
 		       time = source->pause;	
 		else
-			time = SDL_GetTicks() - source->start;
+			time = (short)SDL_GetTicks() - (short)source->start;
 	} else
-		print("TICKS NOT STARTED\n");
+		printf("TICKS NOT STARTED\n");
 
 	return time;
 }
@@ -69,7 +70,7 @@ short calTickPerFrame(short fps)
 void calCorrectFPS(FrameRate* source)
 {
 	float maxFrameNum = 2000000;
-	float timer = getTicks(source->fpsTimer) / 1000.f;
+	float timer = getTicks(&source->fpsTimer) / 1000.f;
 	source->avgFPS = source->countedFrames / timer;
 	
 	if (source->avgFPS > maxFrameNum)
@@ -78,7 +79,7 @@ void calCorrectFPS(FrameRate* source)
 
 void calEndFPS(FrameRate* source)
 {
-	short frameTicks = getTicks(source->capTimer);
+	short frameTicks = getTicks(&source->capTimer);
 
 	if (frameTicks < source->ticksPerFrame)
 		SDL_Delay(source->ticksPerFrame - frameTicks);

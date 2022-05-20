@@ -32,13 +32,13 @@ void openSaveFile(std::string location)
 
 }
 
-SDL_Texture* loadMedia( SDL_Window* win, 
+SDL_Texture* loadImageManual( SDL_Window* win, 
 		        SDL_Renderer* ren, 
-			std::string location, 
-			void &pixels, 
+			std::string &location, 
+			void **pixels, 
 			short &pitch, 
-			short &width, 
-			short &height
+			float &width, 
+			float &height
 		      )
 {
 	SDL_Texture* newTex = NULL;
@@ -51,6 +51,8 @@ SDL_Texture* loadMedia( SDL_Window* win,
 								  pixelFormat,
 								  0
 								);
+		printf("Formatted Surface\n");
+
 		if (formatted != NULL)
 		{
 			newTex = SDL_CreateTexture( ren,
@@ -59,31 +61,39 @@ SDL_Texture* loadMedia( SDL_Window* win,
 						    formatted->w,
 						    formatted->h
 						  );
+			printf("Created new Texture\n");
 
 			if ( newTex != NULL)
 			{
 				SDL_LockTexture( newTex,
 						 NULL,
-						 &pixels,
-						 &pitch
+						 pixels,
+						 (int *)&pitch
 					       );
-				memcpy( pixels,
+				memcpy( *pixels,
 					formatted->pixels,
 					(formatted->pitch * formatted->h)
 				      );
-				SDL_UnlockTexture(newText);
-				pixels = NULL;
+				printf("Pixel address: %s\n",pixels);
+				
+				SDL_UnlockTexture(newTex);
+				*pixels = NULL;
+				printf("Pixel Address: %s\n",pixels);
 				width = formatted->w;
 				height = formatted->h;
+				printf("PIXELS ARE NULL NOW\n");
 			}
 			else
 				printf("SDL_Error: %s\n", SDL_GetError());
 		}
 		else 
 			printf("SDL_Error: %s\n", SDL_GetError());
+
+		SDL_FreeSurface(formatted);
+
 	} else
 		printf("SDL_Error: %s\n",SDL_GetError());
-	SDL_FreeSurface(formatted);
+
 	SDL_FreeSurface(loaded);
 	
 	return newTex;

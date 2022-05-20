@@ -48,7 +48,7 @@ bool initEngine(Window* win)
 			}else 
 				printf("SOUND PROBLEM\n");
 		}else
-			printf("TROUBLE INITITATING\n");
+			printf("TROUBLE INITITATING GRAPHICS\n");
 	}else
 		printf("SDL can't initiate!\n");
 	

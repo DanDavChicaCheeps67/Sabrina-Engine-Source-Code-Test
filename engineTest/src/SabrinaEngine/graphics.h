@@ -4,6 +4,8 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
+typedef SDL_Renderer* Render;
+
 // Graphics Struct
 struct Window
 {
@@ -11,7 +13,10 @@ struct Window
 	SDL_Renderer* render;
 	SDL_Texture* backbuffer;
 	short posX, posY, WIDTH, HEIGHT;
-	short winFlag, renFlag, scaleFlag, bufferFlip;
+	short winFlag, renFlag, scaleFlag;
+	bool renderToBackbuffer;
+	SDL_RendererFlip bufferFlip;
+	Uint8 backgroundColor[3], changeBackbufferColor[4];
 	float bufferAngle;
 	std::string winName;
 };
@@ -28,6 +33,9 @@ void updateRender(Window*);
 void drawPixel(short&,short&,short&,short&,short&,SDL_Renderer*);
 void drawRect(short,short,short,short,short,short,short,SDL_Renderer*);
 void drawLine(short,short,short,short,SDL_Renderer*);
+
+// Backbuffer changes
+void changeBufferColor(SDL_Renderer*, Uint8*);
 
 // Clear Memory
 void destroyGraphics(Window*);

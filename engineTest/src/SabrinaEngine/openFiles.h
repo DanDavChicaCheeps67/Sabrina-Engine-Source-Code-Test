@@ -9,7 +9,7 @@
 void openSettingsFile(std::string&,short*);
 void openSaveFile(std::string&);
 // Open Graphical Files
-SDL_Texture* loadMedia(SDL_Window*,SDL_Renderer*, std::string);
+SDL_Texture* loadImageManual(SDL_Window*,SDL_Renderer*, std::string&,void*,short&,short&,short&);
 // Open Sound Files
 Mix_Music* loadMusic(std::string&);
 Mix_Chunk* loadSoundEffect(std::string&);
