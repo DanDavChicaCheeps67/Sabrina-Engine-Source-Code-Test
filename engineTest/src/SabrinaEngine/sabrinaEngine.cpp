@@ -29,6 +29,7 @@ Purpose: Make a simple game instead of drowning oneself into a complicated river
 bool initEngine(Window* win)
 {
 	bool worked = false;
+
 	//short settingsFlags[sizeof(short)];
 	//std::string settings = "engine_settings.txt";
 	//openSettingsFile(settings, settingsFlags);
@@ -38,7 +39,7 @@ bool initEngine(Window* win)
 	{
 		if(initGraphics(win) != false)
 		{
-			if(initSound() != false)
+			if(initSound(win->soundRate,win->format,win->channels,win->buffer) != false)
 			{
 				if(initInput() != false)
 				{

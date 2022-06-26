@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include "framerate.h"
 
 typedef SDL_Renderer* Render;
 
@@ -19,6 +20,10 @@ struct Window
 	Uint8 backgroundColor[3], changeBackbufferColor[4];
 	float bufferAngle;
 	std::string winName;
+	FrameRate rate;
+	SDL_Event check;
+	// Sound 
+	int soundRate, format, channels, buffer;
 };
 
 // initiate Graphics for entire engine

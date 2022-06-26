@@ -1,6 +1,8 @@
 #ifndef _SABRINAENGINE_H
 #define _SABRINAENGINE_H
 
+#define SDL_MAIN_HANDLED
+
 // Standard Libaries 
 #include <iostream>
 #include <fstream>

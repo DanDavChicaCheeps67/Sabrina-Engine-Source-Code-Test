@@ -1,6 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <SDL2/SDL.h>
 #include "openFiles.h"
 
 void openSettingsFile(std::string &location, short *flag)
@@ -20,9 +17,10 @@ void openSettingsFile(std::string &location, short *flag)
 				i++;
 			}
 	} else
-		printf("Can't Open File\n");
+	{	printf("Can't Open File\n");
 		// Make default flag Zero
 		flag = 0;
+	}
 
 	Settings.close();
 }
@@ -31,7 +29,7 @@ void openSaveFile(std::string location)
 {
 
 }
-
+/*
 SDL_Texture* loadImageManual( SDL_Window* win, 
 		        SDL_Renderer* ren, 
 			std::string &location, 
@@ -98,6 +96,7 @@ SDL_Texture* loadImageManual( SDL_Window* win,
 	
 	return newTex;
 }
+*/
 
 Mix_Music* loadMusic(std::string &location)
 {

@@ -1,3 +1,5 @@
-g++ engineTest.cpp src/SabrinaEngine/sabrinaEngine.cpp src/SabrinaEngine/graphics.cpp src/SabrinaEngine/openFiles.cpp src/SabrinaEngine/sound.cpp src/SabrinaEngine/input.cpp src/SabrinaEngine/sprites.cpp src/SabrinaEngine/framerate.cpp -I/src/SabrinaEngine -o engineTest -lSDL2main -lSDL2 -lSDL_mixer -Wall -g
+g++ engineTest.cpp src/SabrinaEngine/graphics.cpp src/SabrinaEngine/sprites.cpp src/SabrinaEngine/sound.cpp src/SabrinaEngine/input.cpp src/SabrinaEngine/openFiles.cpp src/SabrinaEngine/framerate.cpp src/SabrinaEngine/sabrinaEngine.cpp -I/src/SabrinaEngine -o engineTest -lSDL2main -lSDL2 -lSDL_mixer -Wall -g
+
+
 
  

@@ -1,33 +1,20 @@
 #ifndef _FRAMERATE_H
 #define _FRAMERATE_H
 
-#include <iostream>
 #include <SDL2/SDL.h>
-
-struct Ticks
-{
-	Uint32 start, pause;
-	bool started, paused;
-};
+#include <iostream>
 
 struct FrameRate
 {
-	Ticks fpsTimer, capTimer;
-	short targetFrameRate,ticksPerFrame,countedFrames;
-	float avgFPS,timeStep;
+	short FPS, frameCounter;
+	float frameDelay;
+	Uint32 startTime, passedTime, delay;
 };
 
-// System Clock Ticks 
-void initTicks(Ticks*);
-void startTicking(Ticks*);
-void stopTicking(Ticks*);
-void pauseTicking(Ticks*);
-void unPauseTicks(Ticks*);
-short getTicks(Ticks*);
-
-// Capping FPS
-short calTickPerFrame(short&);
-void calCorrectFPS(FrameRate*);
-void calEndFPS(FrameRate*);
+float calFrameDelay(short&);
+bool resetCounter(FrameRate*);
+void delayFrame(FrameRate*);
+void updateStartTime(FrameRate*);
+void updatePassedTime(FrameRate*);
 
 #endif
