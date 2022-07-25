@@ -1,1 +1,0 @@
-g++ engineTest.cpp src/SabrinaEngine/graphics.cpp src/SabrinaEngine/sprites.cpp src/SabrinaEngine/sound.cpp src/SabrinaEngine/input.cpp src/SabrinaEngine/openFiles.cpp src/SabrinaEngine/framerate.cpp src/SabrinaEngine/sabrinaEngine.cpp -I/src/SabrinaEngine -Iinclude -Llib -o engineTestWin.exe -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -Wall -g
