@@ -9,7 +9,22 @@ int main (int args, char* argvs[])
 	SabrinaEngine testGame;
 
 	if (testGame.checkIfInitiated() == true)
-		printf("WORK\n");
+	{
+		if ( testGame.setUpMainGraphicsDefault() )
+		{
+			if (testGame.initMixerSystem())
+			{
+				while(testGame.mainLoop())
+				{
+					// Add Scene loop and state loop				
+				}
+			}
+			else
+				printf("Failed to Setup MIxer\n");
+		}
+		else
+			printf("Failed to Setup Graphics\n");
+	}
 
 	return 0;
 }
