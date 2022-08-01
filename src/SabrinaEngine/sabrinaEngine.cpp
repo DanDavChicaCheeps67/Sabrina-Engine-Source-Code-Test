@@ -189,6 +189,20 @@ bool SabrinaEngine :: setUpNewWindow(short width,
 	return check;
 }
 
+void SabrinaEngine :: freeAWindow(short index)
+{
+	switch (index)
+	{
+		case 1: printf("CANT FREE MAIN WINDOW\n"); break;
+
+		default: destroyWindow(&Windows[index]);
+			 if (Windows[index].window != NULL)
+				 printf("CANT FREE WINDOW # %d\n", index);
+			 break;
+	}
+	
+}
+
 bool SabrinaEngine :: mainLoop()
 {
 	return checkCloseWindow(&Windows[0]) ? false : true;
@@ -197,6 +211,11 @@ bool SabrinaEngine :: mainLoop()
 bool SabrinaEngine :: initMixerSystem(int soundRate, Uint16 format, int channels, int buffer)
 {
 	return initMixer(soundRate,format,channels,buffer);
+}
+
+Window* SabrinaEngine :: getWindow(short index)
+{
+	return Windows[index];
 }
 
 SabrinaEngine :: ~SabrinaEngine()
